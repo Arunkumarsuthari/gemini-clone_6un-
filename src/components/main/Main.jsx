@@ -75,21 +75,21 @@ const Main = () => {
                   <p>How can I help you Today?</p>
                 </div>
                 <div className="cards">
-                  <div className="card" onClick={() => handleCardClick("Suggest Some Place To Visit In Kerala")}>
-                    <p>Suggest Some Place To Visit In Kerala</p>
+                  <div className="card" onClick={() => handleCardClick("What is Total Quality Management?")}>
+                    <p>What is Total Quality Management?</p>
                     <img src={assets.compass_icon} alt="Compass Icon" />
                   </div>
-                  <div className="card" onClick={() => handleCardClick("Brainstorm team bonding activities for our work retreat")}>
-                    <p>Brainstorm team bonding activities for our work retreat</p>
+                  <div className="card" onClick={() => handleCardClick("Suggest some telugu movies to watch ")}>
+                    <p>Suggest some telugu movies to watch</p>
                     <img src={assets.bulb_icon} alt="Bulb Icon" />
                   </div>
-                  <div className="card" onClick={() => handleCardClick("How to Create a Gyroscope using Disc?")}>
-                    <p>How to Create a Gyroscope using Disc?</p>
-                    <img src={assets.compass_icon} alt="Compass Icon" />
+                  <div className="card" onClick={() => handleCardClick("How to start coding? Which Languages Should i learn?")}>
+                    <p>How to start coding? Which Languages Should i learn?</p>
+                    <img src={assets.code_icon} alt="Compass Icon" />
                   </div>
                   <div className="card" onClick={() => handleCardClick("Create a Script for the youtube video about coding")}>
                     <p>Create a Script for the youtube video about coding</p>
-                    <img src={assets.compass_icon} alt="Compass Icon" />
+                    <img src={assets.youtube_icon} alt="Compass Icon" />
                   </div>
                 </div>
               </>
