@@ -99,6 +99,7 @@
     justify-content: space-between;
     gap: 20px;
     background-color:#f0f4f9;
+    /* border: none; */
     border-radius: 50px;
     padding: 10px 20px;
   }
@@ -108,14 +109,14 @@
     cursor: pointer;
   }
 
-  .search-box input{
-    border-radius: 20px;
+  .main-bottom .search-box input{
+    flex: 1;
     background: transparent;
-    border: none;
+    border: 0;
     outline: none;
     padding: 8px;
     font-size: 18px;
-  }
+}
 
   .search-box div{
     display: flex;
@@ -277,5 +278,33 @@
   
   .result-data p, .result-data li {
     margin: 0 0 10px;
+  }
+
+
+  .result-section {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .result-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .copy-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+  }
+  
+  .bullet-item {
+    margin-left: 20px;
+  }
+  
+  .paragraph-item {
+    margin-bottom: 10px;
   }
   

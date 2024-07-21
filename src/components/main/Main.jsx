@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { assets } from "../../assets/assets";
-import "./Main.css";
 import { Context } from "../../context/Context";
+import { FaCopy } from "react-icons/fa";
+import "./Main.css";
 
 const Main = () => {
   const {
@@ -12,6 +13,7 @@ const Main = () => {
     resultData,
     setInput,
     input,
+    copyToClipboard,
   } = useContext(Context);
 
   const inputRef = useRef(null);
@@ -42,7 +44,10 @@ const Main = () => {
       }
     });
   };
-  
+
+  const handleCardClick = (promptText) => {
+    onSent(promptText);
+  };
 
   return (
     <div className="main">
@@ -55,33 +60,30 @@ const Main = () => {
           <>
             <div className="greet">
               <p>
-                <span>Hello, Bindu...!</span>
+                <span>Hello, Beautifull...!</span>
               </p>
               <p>How can I help you Today?</p>
             </div>
             <div className="cards">
-              <div className="card">
+              <div className="card" onClick={() => handleCardClick("Suggest Some Place To Visit In Kerala")}>
                 <p>
-                  Suggest upcoming sbc content Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. !
+                Suggest Some Place To Visit In Kerala
                 </p>
                 <img src={assets.compass_icon} alt="Compass Icon" />
               </div>
-              <div className="card">
-                <p>Briefly summarize this concept: urban planning</p>
+              <div className="card" onClick={() => handleCardClick("Brainstorm team bonding activities for our work retreat")}>
+                <p>Brainstorm team bonding activities for our work retreat</p>
                 <img src={assets.bulb_icon} alt="Bulb Icon" />
               </div>
-              <div className="card">
+              <div className="card" onClick={() => handleCardClick("How to Create a Gyroscope using Disc?")}>
                 <p>
-                  Suggest upcoming sbc content Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. !
+                How to Create a Gyroscope using Disc?
                 </p>
                 <img src={assets.compass_icon} alt="Compass Icon" />
               </div>
-              <div className="card">
+              <div className="card" onClick={() => handleCardClick("Create a Script for the youtube video about coding")}>
                 <p>
-                  Suggest upcoming sbc content Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. !
+                Create a Script for the youtube video about coding
                 </p>
                 <img src={assets.compass_icon} alt="Compass Icon" />
               </div>
@@ -105,7 +107,15 @@ const Main = () => {
                 ) : (
                   resultData.map((section, index) => (
                     <div key={index} className="result-section">
-                      <h2>{section.title}</h2>
+                      <div className="result-section-header">
+                        <h2>{section.title}</h2>
+                        <button
+                          className="copy-button"
+                          onClick={() => copyToClipboard(section.content)}
+                        >
+                          <FaCopy />
+                        </button>
+                      </div>
                       <ul>{renderContent(section.content)}</ul>
                     </div>
                   ))
@@ -137,7 +147,8 @@ const Main = () => {
             </div>
           </div>
           <div className="bottom-info">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, a
+            Gemini may display inaccurate info, including about people, so
+            double-check its responses. Your privacy & Gemini Apps
           </div>
         </div>
       </div>

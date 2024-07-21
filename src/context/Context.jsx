@@ -15,49 +15,41 @@ const ContextProvider = (props) => {
   const formatResponse = (text) => {
     const lines = text.split("\n");
     const formatted = [];
-    let currentSection = null;
-  
+    let currentSection = { title: "Response", content: [] };
+
     lines.forEach(line => {
       if (line.startsWith("## ")) {
-        if (currentSection) {
+        if (currentSection.title !== "Response") {
           formatted.push(currentSection);
         }
         currentSection = { title: line.substring(3), content: [] };
-      } else if (line.startsWith("* ")) {
-        if (currentSection) {
-          currentSection.content.push({ type: "bullet", text: line.substring(2) });
-        }
+      } else if (line.startsWith("**")) {
+        const htmlText = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Handle bold text
+        currentSection.content.push({ type: "bullet", text: htmlText });
       } else if (line.trim() !== "") {
-        if (currentSection) {
-          // Convert markdown-style bold text to HTML <strong> tags
-          const htmlText = line
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Handle bold text
-          currentSection.content.push({ type: "paragraph", text: htmlText });
-        }
+        const htmlText = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Handle bold text
+        currentSection.content.push({ type: "paragraph", text: htmlText });
       }
     });
-  
-    if (currentSection) {
+
+    if (currentSection.content.length > 0) {
       formatted.push(currentSection);
     }
-  
+
     return formatted;
   };
-  
-  
-  
 
   const onSent = async (prompt) => {
     setLoading(true);
     setShowResult(true);
     setRecentPrompt(prompt);
     setResultData([]);
-  
+
     try {
       const response = await run(prompt);
       const text = await response.text();
-      console.log("Formatted Response:", formatResponse(text)); // Log formatted response
-      setResultData(formatResponse(text));
+      const formattedResponse = formatResponse(text);
+      setResultData(formattedResponse);
     } catch (error) {
       console.error("Error in onSent:", error);
     } finally {
@@ -65,7 +57,15 @@ const ContextProvider = (props) => {
       setInput("");
     }
   };
-  
+
+  const copyToClipboard = (content) => {
+    const textToCopy = content.map(item => item.text.replace(/<\/?[^>]+(>|$)/g, "")).join("\n");
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      alert("Copied to clipboard!");
+    }).catch(err => {
+      console.error("Failed to copy!", err);
+    });
+  };
 
   const contextValue = {
     prevPrompt,
@@ -78,6 +78,7 @@ const ContextProvider = (props) => {
     resultData,
     input,
     setInput,
+    copyToClipboard,
   };
 
   return (
